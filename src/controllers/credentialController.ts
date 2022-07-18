@@ -39,3 +39,15 @@ export async function getCredentials(req: Request, res: Response) {
     res.send({credentials: data}).status(200);
 }
 
+export async function deleteCredentialById(req: Request, res: Response) {
+
+    const id = Number(req.params.id);
+
+    const userId: number = res.locals.userId;
+
+    await credentialService.deleteCredential(id, userId);
+
+    res.sendStatus(200);
+}
+
+

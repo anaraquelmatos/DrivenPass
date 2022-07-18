@@ -29,12 +29,17 @@ async function findAllCredentialsPerUser(userId: number) {
     return await prisma.credential.findMany({ where: { userId } });
 }
 
+async function deleteById(id: number) {
+    return await prisma.credential.delete({ where: { id } });
+}
+
 const credentialRepos = {
     findByIdAndTitle,
     insert,
     findById,
     findByIdPerUser,
-    findAllCredentialsPerUser
+    findAllCredentialsPerUser,
+    deleteById
 }
 
 export default credentialRepos;

@@ -115,9 +115,6 @@ export async function getCredentials(userId: number) {
     return array;
 }
 
-
-
-
 async function searchForCredentials(userId: number) {
 
     const searchIdPerUser = await credentialRepos.findAllCredentialsPerUser(userId);
@@ -130,4 +127,13 @@ async function searchForCredentials(userId: number) {
     }
 
     return searchIdPerUser;
+}
+
+export async function deleteCredential(id: number, userId: number) {
+
+    const credential = await searchForCredential(id, userId);
+
+    if(credential){
+        await credentialRepos.deleteById(id);
+    }
 }
