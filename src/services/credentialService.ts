@@ -21,8 +21,10 @@ export async function createCredential(data: infoCredential, userId: number) {
 
     const password = await encryptInformation(data.password);
 
-    await insertData({ password: password.dataEncrypted, title: data.title, url: data.url, username: data.username,
-    userId: userId});
+    await insertData({
+        password: password.dataEncrypted, title: data.title, url: data.url, username: data.username,
+        userId: userId
+    });
 }
 
 async function encryptInformation(info: string) {
@@ -35,8 +37,10 @@ async function encryptInformation(info: string) {
 
 async function insertData(data: infoInsert) {
 
-    await credentialRepos.insert({userId: data.userId, password: data.password, title: data.title, 
-        url: data.url, username: data.username});
+    await credentialRepos.insert({
+        userId: data.userId, password: data.password, title: data.title,
+        url: data.url, username: data.username
+    });
 
 }
 
@@ -48,23 +52,26 @@ export async function getCredential(id: number, userId: number) {
 
     delete answer.password;
 
-    return {...answer, password};
+    return {
+        id: answer.id, url: answer.url, username: answer.username, password,
+        title: answer.title, createdAt: answer.createdAt, userId: answer.userId
+    };
 }
 
 async function searchForCredential(id: number, userId: number) {
 
     const searchId = await credentialRepos.findById(id);
 
-    if(!searchId){
+    if (!searchId) {
         throw {
             type: "not found",
             message: "Credential id doesn't exist!"
         }
-    }  
+    }
 
     const searchIdPerUser = await credentialRepos.findByIdPerUser(id, userId);
 
-    if(!searchIdPerUser){
+    if (!searchIdPerUser) {
         throw {
             type: "unauthorized",
             message: "Not authorized!"
@@ -79,4 +86,48 @@ async function decryptInformation(info: string) {
     const information = new Cryptr(process.env.KEY);
     const decryptInformation = information.decrypt(info);
     return decryptInformation;
+}
+
+export async function getCredentials(userId: number) {
+
+    const allInfos = await searchForCredentials(userId);
+
+    const array = [];
+
+    for (let allInfo of allInfos) {
+
+        const password = await decryptInformation(allInfo.password);
+
+        allInfo = {
+            ...allInfo,
+            id: allInfo.id,
+            url: allInfo.url,
+            username: allInfo.title,
+            createdAt: allInfo.createdAt,
+            userId: allInfo.userId,
+            password: password
+        }
+
+
+        array.push(allInfo);
+    }
+
+    return array;
+}
+
+
+
+
+async function searchForCredentials(userId: number) {
+
+    const searchIdPerUser = await credentialRepos.findAllCredentialsPerUser(userId);
+
+    if (!searchIdPerUser) {
+        throw {
+            type: "not found",
+            message: "You don't have registered credential yet!"
+        }
+    }
+
+    return searchIdPerUser;
 }

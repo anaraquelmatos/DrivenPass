@@ -25,11 +25,16 @@ async function findByIdPerUser(id: number, userId: number) {
     return await prisma.credential.findFirst({ where: { id, userId } });
 }
 
+async function findAllCredentialsPerUser(userId: number) {
+    return await prisma.credential.findMany({ where: { userId } });
+}
+
 const credentialRepos = {
     findByIdAndTitle,
     insert,
     findById,
-    findByIdPerUser
+    findByIdPerUser,
+    findAllCredentialsPerUser
 }
 
 export default credentialRepos;
