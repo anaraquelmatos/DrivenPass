@@ -5,6 +5,9 @@ export default function errorHandler(error, req: Request, res: Response, next: N
     if (error.type === "unauthorized") {
         return res.status(401).send({ message: error.message });
     }
+    if (error.type === "not found") {
+        return res.status(404).send({ message: error.message });
+    }
     if (error.type === "conflict") {
         return res.status(409).send({ message: error.message });
     }
