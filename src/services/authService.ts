@@ -4,6 +4,7 @@ import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import sessionRepos from "../repositories/sessionRepository.js";
 dotenv.config();
 
 export type infoUser = Omit<User, "id" | "createdAt">;
@@ -15,7 +16,6 @@ export async function SignUpUser(user: infoUser) {
     const passwordEncrypted = await encryptData(user.password);
 
     await userRepos.insert({ email: user.email, password: passwordEncrypted });
-
 }
 
 async function encryptData(data: string) {
@@ -50,6 +50,8 @@ export async function SignInUser(user: infoUser) {
 
     const token = await generateToken(infoUser.id);
 
+    await saveToken(token, infoUser.id)
+
     return token;
 }
 
@@ -69,4 +71,8 @@ async function generateToken(id: number) {
     const settings = { expiresIn: 60 * 60 * 24 * 30 }
     const token = jwt.sign(data, secretKey, settings);
     return token;
+}
+
+async function saveToken(token: string, userId: number) {
+    await sessionRepos.insert(token, userId);
 }

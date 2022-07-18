@@ -21,9 +21,9 @@ export async function verifyErrorSession(req: Request, res: Response, next: Next
         if (!data) return res.send("Invalid token!").status(401);
     }
 
-    const userId: number = session.userId;
+    const userId: number = session;
     res.locals.userId = userId;
 
-    next()
+    next();
 }
 

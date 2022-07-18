@@ -1,18 +1,25 @@
 import prisma from "../../config/database.js";
-import { infoCredential } from "../services/credentialService.js";
+import { infoInsert } from "../services/credentialService.js";
 
 async function findByIdAndTitle(userId: number, title: string) {
-    return await prisma.credential.findFirst({where: {userId, title}});
+    return await prisma.credential.findFirst({ where: { userId, title } });
 }
 
-async function findById(id: number) {
-    return await prisma.credential.findFirst({where: {id}});
+async function insert({ url, username, password, title, userId }: infoInsert) {
+    await prisma.credential.create({
+        data: {
+            url,
+            username,
+            password,
+            title,
+            userId
+        }
+    })
 }
-
 
 const credentialRepos = {
     findByIdAndTitle,
-    findById
+    insert
 }
 
 export default credentialRepos;
