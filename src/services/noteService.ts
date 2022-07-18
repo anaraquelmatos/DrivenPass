@@ -75,3 +75,12 @@ async function searchForNotes(userId: number) {
 
     return searchIdPerUser;
 }
+
+export async function deleteNote(id: number, userId: number) {
+
+    const note = await searchForNote(id, userId);
+
+    if(note){
+        await noteRepos.deleteById(id);
+    }
+}

@@ -21,13 +21,17 @@ async function findAllCredentialsPerUser(userId: number) {
     return await prisma.note.findMany({ where: { userId } });
 }
 
+async function deleteById(id: number) {
+    await prisma.note.delete({ where: { id } });
+}
 
 const noteRepos = {
     findByIdAndTitle,
     insert,
     findById,
     findByIdPerUser,
-    findAllCredentialsPerUser
+    findAllCredentialsPerUser,
+    deleteById
 }
 
 export default noteRepos;

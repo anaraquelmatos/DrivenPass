@@ -40,13 +40,14 @@ export async function getNotes(req: Request, res: Response) {
     res.send({notes: data}).status(200);
 }
 
-// export async function deleteCredentialById(req: Request, res: Response) {
+export async function deleteNoteById(req: Request, res: Response) {
 
-//     const id = Number(req.params.id);
+    const id = Number(req.params.id);
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     await credentialService.deleteCredential(id, userId);
+    await noteService.deleteNote(id, userId);
 
-//     res.sendStatus(200);
-// }
+    res.sendStatus(200);
+}
+
