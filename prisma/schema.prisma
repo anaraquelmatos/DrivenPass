@@ -51,7 +51,7 @@ model Session {
 model Note {
   id           Int    @id @default(autoincrement())
   title        String @db.VarChar(50)
-  description  String @db.VarChar(1000)
+  annotation  String @db.VarChar(1000)
   createdAt    DateTime @default(now())
   user         User   @relation(fields: [userId],references: [id])
   userId       Int

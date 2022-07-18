@@ -30,7 +30,7 @@ async function findAllCredentialsPerUser(userId: number) {
 }
 
 async function deleteById(id: number) {
-    return await prisma.credential.delete({ where: { id } });
+    await prisma.credential.delete({ where: { id } });
 }
 
 const credentialRepos = {
