@@ -1,7 +1,9 @@
 import { Note } from "@prisma/client";
 import noteRepos from "../repositories/noteRepository.js";
 
-// dotenv.config();
+import Cryptr from "cryptr";
+import dotenv from "dotenv";
+dotenv.config();
 
 export type infoNote = Omit<Note, "id" | "createdAt" | "userId">;
 
@@ -47,6 +49,27 @@ async function searchForNote(id: number, userId: number) {
         throw {
             type: "unauthorized",
             message: "Not authorized!"
+        }
+    }
+
+    return searchIdPerUser;
+}
+
+export async function getNotes(userId: number) {
+
+    const allInfos = await searchForNotes(userId);
+
+    return allInfos;
+}
+
+async function searchForNotes(userId: number) {
+
+    const searchIdPerUser = await noteRepos.findAllCredentialsPerUser(userId);
+
+    if (!searchIdPerUser) {
+        throw {
+            type: "not found",
+            message: "You don't have registered note yet!"
         }
     }
 

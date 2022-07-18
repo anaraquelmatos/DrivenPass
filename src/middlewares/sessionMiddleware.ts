@@ -16,7 +16,7 @@ export async function verifyErrorSession(req: Request, res: Response, next: Next
     const session = await sessionRepos?.findSession(data);
 
     if (!session) {
-        return res.status(401).send("This registry cannot be accessed!");
+        return res.status(401).send("The registry cannot be accessed!");
     }
 
     const token = jwt.verify(data, process.env.JWT_SECRET);

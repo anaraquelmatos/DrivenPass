@@ -30,3 +30,23 @@ export async function getNoteById(req: Request, res: Response) {
 
     res.send(data).status(200);
 }
+
+export async function getNotes(req: Request, res: Response) {
+
+    const userId: number = res.locals.userId;
+
+    const data = await noteService.getNotes(userId);
+
+    res.send({notes: data}).status(200);
+}
+
+// export async function deleteCredentialById(req: Request, res: Response) {
+
+//     const id = Number(req.params.id);
+
+//     const userId: number = res.locals.userId;
+
+//     await credentialService.deleteCredential(id, userId);
+
+//     res.sendStatus(200);
+// }

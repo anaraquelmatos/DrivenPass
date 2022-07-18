@@ -17,11 +17,17 @@ async function findByIdPerUser(id: number, userId: number) {
     return await prisma.note.findFirst({ where: { id, userId } });
 }
 
+async function findAllCredentialsPerUser(userId: number) {
+    return await prisma.note.findMany({ where: { userId } });
+}
+
+
 const noteRepos = {
     findByIdAndTitle,
     insert,
     findById,
-    findByIdPerUser
+    findByIdPerUser,
+    findAllCredentialsPerUser
 }
 
 export default noteRepos;
