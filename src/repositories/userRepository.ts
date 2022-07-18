@@ -1,7 +1,7 @@
 import prisma from "../../config/database.js";
-import { createUser } from "../services/authService.js";
+import { infoUser } from "../services/authService.js";
 
-async function insert({email, password}: createUser) {
+async function insert({email, password}: infoUser) {
     await prisma.user.create({
         data: {
             email,
@@ -11,12 +11,7 @@ async function insert({email, password}: createUser) {
 }
 
 async function findByEmail(email: string) {
-    const user = await prisma.user.findUnique({
-        where:{
-            email
-        }
-    })
-    return user;
+    return await prisma.user.findUnique({where:{email}});
 }
 
 const userRepos = {

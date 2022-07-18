@@ -1,10 +1,14 @@
-import { User } from "@prisma/client";
-import bcrypt from "bcrypt";
 import userRepos from "../repositories/userRepository.js";
 
-export type createUser = Omit<User, "id" | "createdAt">;
+import { User } from "@prisma/client";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-export async function SignUpUser(user: createUser) {
+export type infoUser = Omit<User, "id" | "createdAt">;
+
+export async function SignUpUser(user: infoUser) {
 
     await searchUserEmail(user.email);
 
@@ -31,7 +35,7 @@ async function searchUserEmail(email: string) {
     }
 }
 
-export async function SignInUser(user: createUser) {
+export async function SignInUser(user: infoUser) {
 
     const infoUser = await userRepos.findByEmail(user.email);
 
@@ -43,14 +47,26 @@ export async function SignInUser(user: createUser) {
     }
 
     await validatePassword(user.password, infoUser.password);
+
+    const token = await generateToken(infoUser.id);
+
+    return token;
 }
 
 async function validatePassword(password: string, passwordEncrypted: string) {
 
-    if(!bcrypt.compareSync(password, passwordEncrypted)){
+    if (!bcrypt.compareSync(password, passwordEncrypted)) {
         throw {
             type: "unauthorized",
             message: "Incorrect password!"
         }
     }
+}
+
+async function generateToken(id: number) {
+    const data = { id };
+    const secretKey = process.env.JWT_SECRET;
+    const settings = { expiresIn: 60 * 60 * 24 * 30 }
+    const token = jwt.sign(data, secretKey, settings);
+    return token;
 }
