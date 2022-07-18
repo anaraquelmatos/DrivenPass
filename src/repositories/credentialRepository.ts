@@ -17,9 +17,19 @@ async function insert({ url, username, password, title, userId }: infoInsert) {
     })
 }
 
+async function findById(id: number) {
+    return await prisma.credential.findFirst({ where: { id } });
+}
+
+async function findByIdPerUser(id: number, userId: number) {
+    return await prisma.credential.findFirst({ where: { id, userId } });
+}
+
 const credentialRepos = {
     findByIdAndTitle,
-    insert
+    insert,
+    findById,
+    findByIdPerUser
 }
 
 export default credentialRepos;

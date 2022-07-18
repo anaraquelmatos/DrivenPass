@@ -11,7 +11,7 @@ export async function verifyErrorSession(req: Request, res: Response, next: Next
 
     const data = authorization?.replace("Bearer", "").trim();
 
-    if (!data) return res.status(401).send("Non-existent token!");
+    if (!data) return res.status(401).send("Token is required!");
 
     const token = jwt.verify(data, process.env.JWT_SECRET);
 
