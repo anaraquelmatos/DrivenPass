@@ -13,15 +13,17 @@ export async function verifyErrorSession(req: Request, res: Response, next: Next
 
     if (!data) return res.status(401).send("Token is required!");
 
-    const token = jwt.verify(data, process.env.JWT_SECRET);
+    const session = await sessionRepos?.findSession(data);
 
-    const session = await sessionRepos.findSession(data);
-
-    if (!token || !session) {
-        if (!data) return res.send("Invalid token!").status(401);
+    if (!session) {
+        return res.status(401).send("This registry cannot be accessed!");
     }
 
-    const userId: number = session;
+    const token = jwt.verify(data, process.env.JWT_SECRET);
+
+    if (!token) return res.status(401).send("Invalid token!");
+
+    const userId: number = session.userId;
     res.locals.userId = userId;
 
     next();

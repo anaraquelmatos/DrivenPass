@@ -12,3 +12,21 @@ export async function postNote(req: Request, res: Response) {
 
     res.sendStatus(201);
 }
+
+export async function getNoteById(req: Request, res: Response) {
+
+    const id = Number(req.params.id);
+
+    const userId: number = res.locals.userId;
+
+    if(!id){
+        throw{
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
+    
+    const data = await noteService.getNote(id, userId);
+
+    res.send(data).status(200);
+}

@@ -1,8 +1,7 @@
 import prisma from "../../config/database.js";
 
 async function findSession(token: string) {
-    const session = await prisma.session.findFirst({ where: { token } });
-    return session.userId;
+    return await prisma.session.findFirst({ where: { token } });
 }
 
 async function insert(token: string, userId: number) {

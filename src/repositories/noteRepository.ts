@@ -9,9 +9,19 @@ async function insert(data: infoNote, userId: number) {
     await prisma.note.create({ data: { title: data.title, annotation: data.annotation, userId } });
 }
 
+async function findById(id: number) {
+    return await prisma.note.findFirst({ where: { id } });
+}
+
+async function findByIdPerUser(id: number, userId: number) {
+    return await prisma.note.findFirst({ where: { id, userId } });
+}
+
 const noteRepos = {
     findByIdAndTitle,
-    insert
+    insert,
+    findById,
+    findByIdPerUser
 }
 
 export default noteRepos;
