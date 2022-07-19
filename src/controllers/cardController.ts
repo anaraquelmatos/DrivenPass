@@ -37,7 +37,7 @@ export async function getCards(req: Request, res: Response) {
 
     const data = await cardService.getCards(userId);
 
-    res.send({ notes: data }).status(200);
+    res.send({ cards: data }).status(200);
 }
 
 export async function deleteCardById(req: Request, res: Response) {

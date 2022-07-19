@@ -1,11 +1,11 @@
 import prisma from "../../config/database.js";
 import { infoUser } from "../services/authService.js";
 
-async function insert({email, password}: infoUser) {
+async function insert(data: infoUser) {
     await prisma.user.create({
         data: {
-            email,
-            password
+            email: data.email,
+            password: data.password
         }
     })
 }

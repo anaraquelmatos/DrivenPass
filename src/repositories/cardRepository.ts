@@ -29,7 +29,7 @@ async function findByIdPerUser(id: number, userId: number) {
     return await prisma.card.findFirst({ where: { id, userId } });
 }
 
-async function findAllCredentialsPerUser(userId: number) {
+async function findAllCardsPerUser(userId: number) {
     return await prisma.card.findMany({ where: { userId } });
 }
 
@@ -42,7 +42,7 @@ const cardRepos = {
     insert,
     findById,
     findByIdPerUser,
-    findAllCredentialsPerUser,
+    findAllCardsPerUser,
     deleteById
 }
 

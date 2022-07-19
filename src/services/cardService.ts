@@ -53,7 +53,7 @@ async function searchForCard(id: number, userId: number) {
     if (!searchId) {
         throw {
             type: "not found",
-            message: "Note id doesn't exist!"
+            message: "Card id doesn't exist!"
         }
     }
 
@@ -78,12 +78,12 @@ export async function getCards(userId: number) {
 
 async function searchForCards(userId: number) {
 
-    const searchIdPerUser = await cardRepos.findAllCredentialsPerUser(userId);
+    const searchIdPerUser = await cardRepos.findAllCardsPerUser(userId);
 
     if (searchIdPerUser.length === 0) {
         throw {
             type: "not found",
-            message: "You don't have registered card!"
+            message: "You don't have registered cards!"
         }
     }
 

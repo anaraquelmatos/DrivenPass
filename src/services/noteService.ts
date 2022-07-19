@@ -63,7 +63,7 @@ export async function getNotes(userId: number) {
 
 async function searchForNotes(userId: number) {
 
-    const searchIdPerUser = await noteRepos.findAllCredentialsPerUser(userId);
+    const searchIdPerUser = await noteRepos.findAllNotesPerUser(userId);
 
     if (searchIdPerUser.length === 0) {
         throw {
