@@ -31,14 +31,14 @@ export async function getWifiById(req: Request, res: Response) {
     res.send(data).status(200);
 }
 
-// export async function getWifis(req: Request, res: Response) {
+export async function getWifis(req: Request, res: Response) {
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     const data = await wifiService.getWifis(userId);
+    const data = await wifiService.getWifis(userId);
 
-//     res.send({ wifis: data }).status(200);
-// }
+    res.send({ wifis: data }).status(200);
+}
 
 // export async function deleteWifiById(req: Request, res: Response) {
 

@@ -57,26 +57,26 @@ async function searchForWifi(id: number, userId: number) {
     return searchIdPerUser;
 }
 
-// export async function getWifis(userId: number) {
+export async function getWifis(userId: number) {
 
-//     const allInfos = await searchForWifis(userId);
+    const allInfos = await searchForWifis(userId);
 
-//     return allInfos;
-// }
+    return allInfos;
+}
 
-// async function searchForWifis(userId: number) {
+async function searchForWifis(userId: number) {
 
-//     const searchIdPerUser = await wifiRepos.findAllWifisPerUser(userId);
+    const searchIdPerUser = await wifiRepos.findAllWifisPerUser(userId);
 
-//     if (searchIdPerUser.length === 0) {
-//         throw {
-//             type: "not found",
-//             message: "You don't have registered wifis!"
-//         }
-//     }
+    if (searchIdPerUser.length === 0) {
+        throw {
+            type: "not found",
+            message: "You don't have registered wifis!"
+        }
+    }
 
-//     return searchIdPerUser;
-// }
+    return searchIdPerUser;
+}
 
 // export async function deleteWifi(id: number, userId: number) {
 
