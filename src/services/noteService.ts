@@ -1,7 +1,6 @@
 import { Note } from "@prisma/client";
 import noteRepos from "../repositories/noteRepository.js";
 
-import Cryptr from "cryptr";
 import dotenv from "dotenv";
 dotenv.config();
 

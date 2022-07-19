@@ -19,13 +19,13 @@ export async function getNoteById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if(!id){
-        throw{
+    if (!id) {
+        throw {
             type: "unauthorized",
             message: "Invalid param!"
         }
     }
-    
+
     const data = await noteService.getNote(id, userId);
 
     res.send(data).status(200);
@@ -37,7 +37,7 @@ export async function getNotes(req: Request, res: Response) {
 
     const data = await noteService.getNotes(userId);
 
-    res.send({notes: data}).status(200);
+    res.send({ notes: data }).status(200);
 }
 
 export async function deleteNoteById(req: Request, res: Response) {
@@ -45,6 +45,13 @@ export async function deleteNoteById(req: Request, res: Response) {
     const id = Number(req.params.id);
 
     const userId: number = res.locals.userId;
+
+    if (!id) {
+        throw {
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
 
     await noteService.deleteNote(id, userId);
 

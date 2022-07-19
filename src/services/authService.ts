@@ -1,10 +1,10 @@
 import userRepos from "../repositories/userRepository.js";
+import sessionRepos from "../repositories/sessionRepository.js";
 
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import sessionRepos from "../repositories/sessionRepository.js";
 dotenv.config();
 
 export type infoUser = Omit<User, "id" | "createdAt">;

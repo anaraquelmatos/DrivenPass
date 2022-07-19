@@ -18,13 +18,13 @@ export async function getCredentialById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if(!id){
-        throw{
+    if (!id) {
+        throw {
             type: "unauthorized",
             message: "Invalid param!"
         }
     }
-    
+
     const data = await credentialService.getCredential(id, userId);
 
     res.send(data).status(200);
@@ -36,7 +36,7 @@ export async function getCredentials(req: Request, res: Response) {
 
     const data = await credentialService.getCredentials(userId);
 
-    res.send({credentials: data}).status(200);
+    res.send({ credentials: data }).status(200);
 }
 
 export async function deleteCredentialById(req: Request, res: Response) {
@@ -44,6 +44,13 @@ export async function deleteCredentialById(req: Request, res: Response) {
     const id = Number(req.params.id);
 
     const userId: number = res.locals.userId;
+
+    if (!id) {
+        throw {
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
 
     await credentialService.deleteCredential(id, userId);
 
