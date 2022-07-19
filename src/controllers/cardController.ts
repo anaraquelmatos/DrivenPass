@@ -31,14 +31,14 @@ export async function getCardById(req: Request, res: Response) {
     res.send(data).status(200);
 }
 
-// export async function getNotes(req: Request, res: Response) {
+export async function getCards(req: Request, res: Response) {
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     const data = await noteService.getNotes(userId);
+    const data = await cardService.getCards(userId);
 
-//     res.send({notes: data}).status(200);
-// }
+    res.send({notes: data}).status(200);
+}
 
 // export async function deleteNoteById(req: Request, res: Response) {
 

@@ -69,26 +69,26 @@ async function searchForCard(id: number, userId: number) {
     return searchIdPerUser;
 }
 
-// export async function getNotes(userId: number) {
+export async function getCards(userId: number) {
 
-//     const allInfos = await searchForNotes(userId);
+    const allInfos = await searchForCards(userId);
 
-//     return allInfos;
-// }
+    return allInfos;
+}
 
-// async function searchForNotes(userId: number) {
+async function searchForCards(userId: number) {
 
-//     const searchIdPerUser = await noteRepos.findAllCredentialsPerUser(userId);
+    const searchIdPerUser = await cardRepos.findAllCredentialsPerUser(userId);
 
-//     if (!searchIdPerUser) {
-//         throw {
-//             type: "not found",
-//             message: "You don't have registered note yet!"
-//         }
-//     }
+    if (searchIdPerUser.length === 0) {
+        throw {
+            type: "not found",
+            message: "You don't have registered card!"
+        }
+    }
 
-//     return searchIdPerUser;
-// }
+    return searchIdPerUser;
+}
 
 // export async function deleteNote(id: number, userId: number) {
 
