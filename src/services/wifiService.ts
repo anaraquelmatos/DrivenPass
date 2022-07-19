@@ -27,35 +27,35 @@ async function encryptInformation(info: string) {
     };
 }
 
-// export async function getWifi(id: number, userId: number) {
+export async function getWifi(id: number, userId: number) {
 
-//     const answer = await searchForWifi(id, userId);
+    const answer = await searchForWifi(id, userId);
 
-//     return answer;
-// }
+    return answer;
+}
 
-// async function searchForWifi(id: number, userId: number) {
+async function searchForWifi(id: number, userId: number) {
 
-//     const searchId = await wifiRepos.findById(id);
+    const searchId = await wifiRepos.findById(id);
 
-//     if (!searchId) {
-//         throw {
-//             type: "not found",
-//             message: "Wifi id doesn't exist!"
-//         }
-//     }
+    if (!searchId) {
+        throw {
+            type: "not found",
+            message: "Wifi id doesn't exist!"
+        }
+    }
 
-//     const searchIdPerUser = await wifiRepos.findByIdPerUser(id, userId);
+    const searchIdPerUser = await wifiRepos.findByIdPerUser(id, userId);
 
-//     if (!searchIdPerUser) {
-//         throw {
-//             type: "unauthorized",
-//             message: "Not authorized!"
-//         }
-//     }
+    if (!searchIdPerUser) {
+        throw {
+            type: "unauthorized",
+            message: "Not authorized!"
+        }
+    }
 
-//     return searchIdPerUser;
-// }
+    return searchIdPerUser;
+}
 
 // export async function getWifis(userId: number) {
 

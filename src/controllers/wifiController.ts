@@ -13,23 +13,23 @@ export async function postWifi(req: Request, res: Response) {
     res.sendStatus(201);
 }
 
-// export async function getWifiById(req: Request, res: Response) {
+export async function getWifiById(req: Request, res: Response) {
 
-//     const id = Number(req.params.id);
+    const id = Number(req.params.id);
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     if (!id) {
-//         throw {
-//             type: "unauthorized",
-//             message: "Invalid param!"
-//         }
-//     }
+    if (!id) {
+        throw {
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
 
-//     const data = await wifiService.getWifi(id, userId);
+    const data = await wifiService.getWifi(id, userId);
 
-//     res.send(data).status(200);
-// }
+    res.send(data).status(200);
+}
 
 // export async function getWifis(req: Request, res: Response) {
 
