@@ -65,10 +65,10 @@ async function searchForNotes(userId: number) {
 
     const searchIdPerUser = await noteRepos.findAllCredentialsPerUser(userId);
 
-    if (!searchIdPerUser) {
+    if (searchIdPerUser.length === 0) {
         throw {
             type: "not found",
-            message: "You don't have registered note yet!"
+            message: "You don't have registered notes!"
         }
     }
 

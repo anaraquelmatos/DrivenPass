@@ -39,35 +39,35 @@ async function encryptInformation(info: string) {
     };
 }
 
-// export async function getNote(id: number, userId: number) {
+export async function getCard(id: number, userId: number) {
 
-//     const answer = await searchForNote(id, userId);
+    const answer = await searchForCard(id, userId);
 
-//     return answer;
-// }
+    return answer;
+}
 
-// async function searchForNote(id: number, userId: number) {
+async function searchForCard(id: number, userId: number) {
 
-//     const searchId = await noteRepos.findById(id);
+    const searchId = await cardRepos.findById(id);
 
-//     if (!searchId) {
-//         throw {
-//             type: "not found",
-//             message: "Note id doesn't exist!"
-//         }
-//     }
+    if (!searchId) {
+        throw {
+            type: "not found",
+            message: "Note id doesn't exist!"
+        }
+    }
 
-//     const searchIdPerUser = await noteRepos.findByIdPerUser(id, userId);
+    const searchIdPerUser = await cardRepos.findByIdPerUser(id, userId);
 
-//     if (!searchIdPerUser) {
-//         throw {
-//             type: "unauthorized",
-//             message: "Not authorized!"
-//         }
-//     }
+    if (!searchIdPerUser) {
+        throw {
+            type: "unauthorized",
+            message: "Not authorized!"
+        }
+    }
 
-//     return searchIdPerUser;
-// }
+    return searchIdPerUser;
+}
 
 // export async function getNotes(userId: number) {
 

@@ -13,23 +13,23 @@ export async function postCard(req: Request, res: Response) {
     res.sendStatus(201);
 }
 
-// export async function getNoteById(req: Request, res: Response) {
+export async function getCardById(req: Request, res: Response) {
 
-//     const id = Number(req.params.id);
+    const id = Number(req.params.id);
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     if(!id){
-//         throw{
-//             type: "unauthorized",
-//             message: "Invalid param!"
-//         }
-//     }
+    if(!id){
+        throw{
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
     
-//     const data = await noteService.getNote(id, userId);
+    const data = await cardService.getCard(id, userId);
 
-//     res.send(data).status(200);
-// }
+    res.send(data).status(200);
+}
 
 // export async function getNotes(req: Request, res: Response) {
 

@@ -119,10 +119,10 @@ async function searchForCredentials(userId: number) {
 
     const searchIdPerUser = await credentialRepos.findAllCredentialsPerUser(userId);
 
-    if (!searchIdPerUser) {
+    if (searchIdPerUser.length === 0) {
         throw {
             type: "not found",
-            message: "You don't have registered credential yet!"
+            message: "You don't have registered credentials!"
         }
     }
 

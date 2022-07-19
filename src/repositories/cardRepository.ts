@@ -21,13 +21,13 @@ async function insert(data: infoCard, userId: number) {
     });
 }
 
-// async function findById(id: number) {
-//     return await prisma.note.findFirst({ where: { id } });
-// }
+async function findById(id: number) {
+    return await prisma.card.findFirst({ where: { id } });
+}
 
-// async function findByIdPerUser(id: number, userId: number) {
-//     return await prisma.note.findFirst({ where: { id, userId } });
-// }
+async function findByIdPerUser(id: number, userId: number) {
+    return await prisma.card.findFirst({ where: { id, userId } });
+}
 
 // async function findAllCredentialsPerUser(userId: number) {
 //     return await prisma.note.findMany({ where: { userId } });
@@ -39,8 +39,9 @@ async function insert(data: infoCard, userId: number) {
 
 const cardRepos = {
     findByIdAndTitle,
-    insert
-
+    insert,
+    findById,
+    findByIdPerUser
 }
 
 export default cardRepos;
