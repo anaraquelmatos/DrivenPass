@@ -33,16 +33,17 @@ async function findAllCredentialsPerUser(userId: number) {
     return await prisma.card.findMany({ where: { userId } });
 }
 
-// async function deleteById(id: number) {
-//     await prisma.note.delete({ where: { id } });
-// }
+async function deleteById(id: number) {
+    await prisma.card.delete({ where: { id } });
+}
 
 const cardRepos = {
     findByIdAndTitle,
     insert,
     findById,
     findByIdPerUser,
-    findAllCredentialsPerUser
+    findAllCredentialsPerUser,
+    deleteById
 }
 
 export default cardRepos;

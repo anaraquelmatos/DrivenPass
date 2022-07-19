@@ -19,13 +19,13 @@ export async function getCardById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if(!id){
-        throw{
+    if (!id) {
+        throw {
             type: "unauthorized",
             message: "Invalid param!"
         }
     }
-    
+
     const data = await cardService.getCard(id, userId);
 
     res.send(data).status(200);
@@ -37,16 +37,23 @@ export async function getCards(req: Request, res: Response) {
 
     const data = await cardService.getCards(userId);
 
-    res.send({notes: data}).status(200);
+    res.send({ notes: data }).status(200);
 }
 
-// export async function deleteNoteById(req: Request, res: Response) {
+export async function deleteCardById(req: Request, res: Response) {
 
-//     const id = Number(req.params.id);
+    const id = Number(req.params.id);
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     await noteService.deleteNote(id, userId);
+    if (!id) {
+        throw {
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
 
-//     res.sendStatus(200);
-// }
+    await cardService.deleteCard(id, userId);
+
+    res.sendStatus(200);
+}

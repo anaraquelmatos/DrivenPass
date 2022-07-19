@@ -90,11 +90,11 @@ async function searchForCards(userId: number) {
     return searchIdPerUser;
 }
 
-// export async function deleteNote(id: number, userId: number) {
+export async function deleteCard(id: number, userId: number) {
 
-//     const note = await searchForNote(id, userId);
+    const card = await searchForCard(id, userId);
 
-//     if(note){
-//         await noteRepos.deleteById(id);
-//     }
-// }
+    if(card){
+        await cardRepos.deleteById(id);
+    }
+}
