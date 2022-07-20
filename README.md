@@ -19,7 +19,7 @@
 
 ***
 
-## :rocket: Routers
+## :rocket: API
 
 ```yml
 POST /sign-up
