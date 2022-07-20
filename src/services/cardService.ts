@@ -1,11 +1,12 @@
 import { Card } from "@prisma/client";
 import cardRepos from "../repositories/cardRepository.js";
+import encryptDataUtil from "../utils/encryptDataUtil.js";
 
 import dotenv from "dotenv";
-import Cryptr from "cryptr";
 dotenv.config();
 
 export type infoCard = Omit<Card, "id" | "createdAt" | "userId">;
+export type infoCardUpdated = Omit<Card, "id" | "createdAt">;
 
 export async function createCard(data: infoCard, userId: number) {
 
@@ -18,25 +19,27 @@ export async function createCard(data: infoCard, userId: number) {
         }
     }
 
-    const number = await encryptInformation(data.number);
+    const number = await encryptDataUtil.encryptDataCryptr(data.number);
 
-    const securityCode = await encryptInformation(data.securityCode);
+    const securityCode = await encryptDataUtil.encryptDataCryptr(data.securityCode);
 
-    await insertCard({number: number.dataEncrypted, printedName: data.printedName, securityCode: securityCode.dataEncrypted,
-    expirationDate: data.expirationDate, password: data.password, isVirtual: data.isVirtual,
-    type: data.type, title: data.title}, userId);
+    const infoCard = {
+        number: number.dataEncrypted,
+        printedName: data.printedName,
+        securityCode: securityCode.dataEncrypted,
+        expirationDate: data.expirationDate,
+        password: data.password,
+        isVirtual: data.isVirtual,
+        type: data.type,
+        title: data.title,
+        userId
+    }
+
+    await insertCard({ ...infoCard });
 }
 
-async function insertCard(data: infoCard, userId: number) {
-    await cardRepos.insert(data, userId);
-}
-
-async function encryptInformation(info: string) {
-    const data = new Cryptr(process.env.KEY);
-    const dataEncrypted = data.encrypt(info);
-    return {
-        dataEncrypted
-    };
+async function insertCard(data: infoCardUpdated) {
+    await cardRepos.insert(data);
 }
 
 export async function getCard(id: number, userId: number) {
@@ -94,7 +97,7 @@ export async function deleteCard(id: number, userId: number) {
 
     const card = await searchForCard(id, userId);
 
-    if(card){
+    if (card) {
         await cardRepos.deleteById(id);
     }
 }

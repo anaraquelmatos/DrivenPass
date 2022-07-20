@@ -7,15 +7,7 @@ async function findByIdAndTitle(userId: number, title: string) {
 }
 
 async function insert(data: infoInsert) {
-    await prisma.credential.create({
-        data: {
-            url: data.url,
-            username: data.username,
-            password: data.password,
-            title: data.title,
-            userId: data.userId
-        }
-    })
+    await prisma.credential.create({data});
 }
 
 async function findById(id: number) {

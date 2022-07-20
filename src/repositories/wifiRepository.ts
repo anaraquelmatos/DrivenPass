@@ -1,15 +1,8 @@
 import prisma from "../../config/database.js";
-import { infoWifi } from "../services/wifiService.js";
+import { infoWifiUptaded } from "../services/wifiService.js";
 
-async function insert(data: infoWifi, userId: number) {
-    await prisma.wifi.create({
-        data: {
-            networkName: data.networkName,
-            title: data.title, 
-            password: data.password, 
-            userId
-        }
-    });
+async function insert(data: infoWifiUptaded) {
+    await prisma.wifi.create({data});
 }
 
 async function findById(id: number) {

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { infoCard } from "../services/cardService.js";
 import * as cardService from "../services/cardService.js";
+import verifyErrorsUtil from "../utils/verifyErrorsUtil.js";
 
 export async function postCard(req: Request, res: Response) {
 
@@ -19,12 +20,7 @@ export async function getCardById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     const data = await cardService.getCard(id, userId);
 
@@ -46,12 +42,7 @@ export async function deleteCardById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     await cardService.deleteCard(id, userId);
 

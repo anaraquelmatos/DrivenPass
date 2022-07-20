@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as wifiService from "../services/wifiService.js";
 import { infoWifi } from "../services/wifiService.js";
+import verifyErrorsUtil from "../utils/verifyErrorsUtil.js";
 
 export async function postWifi(req: Request, res: Response) {
 
@@ -19,12 +20,7 @@ export async function getWifiById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     const data = await wifiService.getWifi(id, userId);
 
@@ -46,12 +42,7 @@ export async function deleteWifiById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     await wifiService.deleteWifi(id, userId);
 

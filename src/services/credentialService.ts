@@ -1,5 +1,6 @@
 import { Credential } from "@prisma/client";
 import credentialRepos from "../repositories/credentialRepository.js";
+import encryptDataUtil from "../utils/encryptDataUtil.js";
 
 import Cryptr from "cryptr";
 import dotenv from "dotenv";
@@ -19,28 +20,22 @@ export async function createCredential(data: infoCredential, userId: number) {
         }
     }
 
-    const password = await encryptInformation(data.password);
+    const password = await encryptDataUtil.encryptDataCryptr(data.password);
 
-    await insertData({
-        password: password.dataEncrypted, title: data.title,
-        url: data.url, username: data.username, userId
-    });
-}
+    const infoCredential = {
+        password: password.dataEncrypted,
+        title: data.title,
+        url: data.url,
+        username: data.username,
+        userId
+    }
 
-async function encryptInformation(info: string) {
-    const data = new Cryptr(process.env.KEY);
-    const dataEncrypted = data.encrypt(info);
-    return {
-        dataEncrypted
-    };
+    await insertData({ ...infoCredential });
 }
 
 async function insertData(data: infoInsert) {
 
-    await credentialRepos.insert({
-        userId: data.userId, password: data.password, title: data.title,
-        url: data.url, username: data.username
-    });
+    await credentialRepos.insert(data);
 
 }
 

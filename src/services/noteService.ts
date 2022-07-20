@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export type infoNote = Omit<Note, "id" | "createdAt" | "userId">;
+export type infoNoteUptaded = Omit<Note, "id" | "createdAt">;
 
 export async function createNote(data: infoNote, userId: number) {
 
@@ -17,11 +18,16 @@ export async function createNote(data: infoNote, userId: number) {
         }
     }
 
-    await insertNote(data,userId);    
+    const infoNote = {
+        ...data,
+        userId
+    }
+
+    await insertNote(infoNote);
 }
 
-async function insertNote(data: infoNote, userId: number) {
-    await noteRepos.insert(data, userId);
+async function insertNote(data: infoNoteUptaded) {
+    await noteRepos.insert(data);
 }
 
 export async function getNote(id: number, userId: number) {
@@ -79,7 +85,7 @@ export async function deleteNote(id: number, userId: number) {
 
     const note = await searchForNote(id, userId);
 
-    if(note){
+    if (note) {
         await noteRepos.deleteById(id);
     }
 }

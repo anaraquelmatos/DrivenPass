@@ -1,12 +1,12 @@
 import prisma from "../../config/database.js";
-import { infoNote } from "../services/noteService.js";
+import { infoNoteUptaded } from "../services/noteService.js";
 
 async function findByIdAndTitle(userId: number, title: string) {
     return await prisma.note.findFirst({ where: { userId, title } });
 }
 
-async function insert(data: infoNote, userId: number) {
-    await prisma.note.create({ data: { title: data.title, annotation: data.annotation, userId } });
+async function insert(data: infoNoteUptaded) {
+    await prisma.note.create({ data });
 }
 
 async function findById(id: number) {

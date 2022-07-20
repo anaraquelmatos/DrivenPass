@@ -1,5 +1,6 @@
 import userRepos from "../repositories/userRepository.js";
 import sessionRepos from "../repositories/sessionRepository.js";
+import encryptDataUtil from "../utils/encryptDataUtil.js";
 
 import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
@@ -13,15 +14,14 @@ export async function SignUpUser(user: infoUser) {
 
     await searchUserEmail(user.email);
 
-    const passwordEncrypted = await encryptData(user.password);
+    const passwordEncrypted = await encryptDataUtil.encryptDataBcrypt(user.password);
 
-    await userRepos.insert({ email: user.email, password: passwordEncrypted });
-}
+    const infoUser = {
+        email: user.email,
+        password: passwordEncrypted
+    }
 
-async function encryptData(data: string) {
-    const NUMBER = 10;
-    const encrypted = bcrypt.hashSync(data, NUMBER);
-    return encrypted;
+    await userRepos.insert({ ...infoUser });
 }
 
 async function searchUserEmail(email: string) {

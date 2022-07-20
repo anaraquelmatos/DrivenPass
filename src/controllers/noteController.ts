@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { infoNote } from "../services/noteService.js";
 import * as noteService from "../services/noteService.js";
+import verifyErrorsUtil from "../utils/verifyErrorsUtil.js";
 
 export async function postNote(req: Request, res: Response) {
 
@@ -19,12 +20,7 @@ export async function getNoteById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     const data = await noteService.getNote(id, userId);
 
@@ -46,12 +42,7 @@ export async function deleteNoteById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    if (!id) {
-        throw {
-            type: "unauthorized",
-            message: "Invalid param!"
-        }
-    }
+    await verifyErrorsUtil.verifyParam(id);
 
     await noteService.deleteNote(id, userId);
 
