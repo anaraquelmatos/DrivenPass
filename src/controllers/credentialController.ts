@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as credentialService from "../services/credentialService.js";
-import verifyErrorsUtil from "../utils/verifyErrorsUtil.js";
+import verifyErrors from "../utils/verifyErrorsUtil.js";
 
 export async function postCredential(req: Request, res: Response) {
 
@@ -19,7 +19,7 @@ export async function getCredentialById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    await verifyErrorsUtil.verifyParam(id);
+    await verifyErrors.verifyParam(id);
 
     const data = await credentialService.getCredential(id, userId);
 
@@ -41,7 +41,7 @@ export async function deleteCredentialById(req: Request, res: Response) {
 
     const userId: number = res.locals.userId;
 
-    await verifyErrorsUtil.verifyParam(id);
+    await verifyErrors.verifyParam(id);
 
     await credentialService.deleteCredential(id, userId);
 
