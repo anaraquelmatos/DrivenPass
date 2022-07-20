@@ -78,11 +78,11 @@ async function searchForWifis(userId: number) {
     return searchIdPerUser;
 }
 
-// export async function deleteWifi(id: number, userId: number) {
+export async function deleteWifi(id: number, userId: number) {
 
-//     const wifi = await searchForWifi(id, userId);
+    const wifi = await searchForWifi(id, userId);
 
-//     if(wifi){
-//         await wifiRepos.deleteById(id);
-//     }
-// }
+    if(wifi){
+        await wifiRepos.deleteById(id);
+    }
+}

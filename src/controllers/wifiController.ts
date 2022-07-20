@@ -40,21 +40,21 @@ export async function getWifis(req: Request, res: Response) {
     res.send({ wifis: data }).status(200);
 }
 
-// export async function deleteWifiById(req: Request, res: Response) {
+export async function deleteWifiById(req: Request, res: Response) {
 
-//     const id = Number(req.params.id);
+    const id = Number(req.params.id);
 
-//     const userId: number = res.locals.userId;
+    const userId: number = res.locals.userId;
 
-//     if (!id) {
-//         throw {
-//             type: "unauthorized",
-//             message: "Invalid param!"
-//         }
-//     }
+    if (!id) {
+        throw {
+            type: "unauthorized",
+            message: "Invalid param!"
+        }
+    }
 
-//     await wifiService.deleteWifi(id, userId);
+    await wifiService.deleteWifi(id, userId);
 
-//     res.sendStatus(200);
-// }
+    res.sendStatus(200);
+}
 
