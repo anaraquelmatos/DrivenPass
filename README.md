@@ -25,7 +25,7 @@
 POST /sign-up
     - Route to register a new user
     - headers: {}
-    - body:{
+    - body: {
         "email": "max@gmail.com",
         "password": "1234567890"
 }
