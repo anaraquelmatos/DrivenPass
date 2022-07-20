@@ -33,7 +33,6 @@ POST /sign-up
     
 ```yml 
 POST /sign-in
-
     - Route to login
     - headers: {}
     - body: {
