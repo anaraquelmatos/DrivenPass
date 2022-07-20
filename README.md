@@ -93,7 +93,7 @@ GET /note/:id (authenticated)
 ``` 
 
 ```yml
-GET /note (authenticated)
+GET /notes (authenticated)
     - Route to list all user notes
     - headers: { "Authorization": "Bearer $token" }
     - body: {}
@@ -130,8 +130,8 @@ GET /card/:id (authenticated)
 ``` 
 
 ```yml
-GET /card (authenticated)
-    - Route to list all user notes
+GET /cards (authenticated)
+    - Route to list all user cards
     - headers: { "Authorization": "Bearer $token" }
     - body: {}
 ``` 
@@ -162,7 +162,7 @@ GET /wifi/:id (authenticated)
 ``` 
 
 ```yml
-GET /wifi (authenticated)
+GET /wifis (authenticated)
     - Route to list all user wifis
     - headers: { "Authorization": "Bearer $token" }
     - body: {}
