@@ -1,13 +1,15 @@
 import prisma from "../../config/database.js";
 import { infoWifi } from "../services/wifiService.js";
 
-async function findByIdAndTitle(userId: number, title: string) {
-    return await prisma.wifi.findFirst({ where: { userId, title } });
-}
-
 async function insert(data: infoWifi, userId: number) {
-    await prisma.wifi.create({ data: { networkName: data.networkName, title: data.title, 
-        password: data.password, userId } });
+    await prisma.wifi.create({
+        data: {
+            networkName: data.networkName,
+            title: data.title, 
+            password: data.password, 
+            userId
+        }
+    });
 }
 
 async function findById(id: number) {
@@ -27,7 +29,6 @@ async function deleteById(id: number) {
 }
 
 const wifiRepos = {
-    findByIdAndTitle,
     insert,
     findById,
     findByIdPerUser,

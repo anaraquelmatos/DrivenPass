@@ -22,8 +22,8 @@ export async function createCredential(data: infoCredential, userId: number) {
     const password = await encryptInformation(data.password);
 
     await insertData({
-        password: password.dataEncrypted, title: data.title, url: data.url, username: data.username,
-        userId: userId
+        password: password.dataEncrypted, title: data.title,
+        url: data.url, username: data.username, userId
     });
 }
 
@@ -133,7 +133,7 @@ export async function deleteCredential(id: number, userId: number) {
 
     const credential = await searchForCredential(id, userId);
 
-    if(credential){
+    if (credential) {
         await credentialRepos.deleteById(id);
     }
 }
