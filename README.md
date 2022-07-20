@@ -5,7 +5,7 @@
 
 ##  :clipboard: Description
 
-- Allows the user to register credential, secure notes, card and wifi.
+- Allows the user to register credential, secure note, card and wifi.
 
 ***
 
